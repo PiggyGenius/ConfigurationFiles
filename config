@@ -1,0 +1,136 @@
+[global_config]
+  enabled_plugins = ,
+  focus = system
+  handle_size = 5
+  inactive_color_offset = 0.86
+  suppress_multiple_term_dialog = True
+  title_font = Inconsolata 9
+  title_hide_sizetext = True
+  title_use_system_font = False
+[keybindings]
+  broadcast_all = <Primary>g
+  broadcast_off = <Primary>j
+  group_all_toggle = <Super>a
+  layout_launcher = None
+[layouts]
+  [[default]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 613a1e0a-6b82-44e6-ab74-54b77864fabb
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:0
+      size = 1920, 1051
+      title = piggygenius@PiggyArch:~
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 958
+      ratio = 0.5
+      type = HPaned
+    [[[child2]]]
+      order = 0
+      parent = child1
+      position = 523
+      ratio = 0.499524262607
+      type = VPaned
+    [[[child5]]]
+      order = 1
+      parent = child1
+      position = 523
+      ratio = 0.499524262607
+      type = VPaned
+    [[[terminal3]]]
+      order = 0
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 613a1e0a-6b82-44e6-ab74-54b77864fabb
+    [[[terminal4]]]
+      order = 1
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = cd241897-79db-4226-a165-e897002fff7a
+    [[[terminal6]]]
+      order = 0
+      parent = child5
+      profile = default
+      type = Terminal
+      uuid = fa5ec8c7-2377-4c76-bd88-7666e81fdf6c
+    [[[terminal7]]]
+      order = 1
+      parent = child5
+      profile = default
+      type = Terminal
+      uuid = c9e35664-a55d-4c74-993a-09cff7f896c0
+  [[PiggyLayout]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = fa5ec8c7-2377-4c76-bd88-7666e81fdf6c
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:0
+      size = 1920, 1051
+      title = piggygenius@PiggyArch:~
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 958
+      ratio = 0.5
+      type = HPaned
+    [[[child2]]]
+      order = 0
+      parent = child1
+      position = 522
+      ratio = 0.498572787821
+      type = VPaned
+    [[[child5]]]
+      order = 1
+      parent = child1
+      position = 522
+      ratio = 0.498572787821
+      type = VPaned
+    [[[terminal3]]]
+      order = 0
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 613a1e0a-6b82-44e6-ab74-54b77864fabb
+    [[[terminal4]]]
+      order = 1
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = cd241897-79db-4226-a165-e897002fff7a
+    [[[terminal6]]]
+      order = 0
+      parent = child5
+      profile = solarized-dark
+      type = Terminal
+      uuid = fa5ec8c7-2377-4c76-bd88-7666e81fdf6c
+    [[[terminal7]]]
+      order = 1
+      parent = child5
+      profile = default
+      type = Terminal
+      uuid = c9e35664-a55d-4c74-993a-09cff7f896c0
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#1d2021"
+    background_image = None
+    cursor_color = "#dddddd"
+    font = Inconsolata 13
+    foreground_color = "#ffffff"
+    icon_bell = False
+    palette = "#282828:#ff0000:#48e417:#f1f414:#3493ca:#c436e8:#1dea25:#a89984:#928374:#ee0712:#e3e710:#e7cc0f:#16b1e1:#d3869b:#389e14:#ebdbb2"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
