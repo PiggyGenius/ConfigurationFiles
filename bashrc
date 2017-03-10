@@ -1,6 +1,7 @@
 #### TODO ####
 #sudo systemctl start mysqld
 #sudo systemctl start httpd
+#create a bell function maxime style
 #### TODO ####
 
 # If not running interactively, don't do anything
@@ -8,7 +9,8 @@
 
 stty -ixon # Disable the Software Flow Control nonsense
 
-
+alias sb='source ~/.bashrc'
+alias vv='vim ~/.vimrc'
 alias ls='ls -Fv --color=always' # ls with colors and file type,v is for number sort
 alias la='ls -Av' #ls with relevant hidden files
 alias ll='ls -lasv' #ls with long format and size
@@ -60,7 +62,7 @@ function unzip(){
 	unzip $1
 	rm $1
 }
-function gnatf(){
+function gnatmake(){
 	gnatmake $1
 	rm *.ali
 	rm *.o
@@ -80,7 +82,6 @@ function getip(){
 	echo -n "Internal IP: "; hostname -i
 	echo -n "External IP: "; wget http://ipinfo.io/ip -qO -
 }
-alias gnatmake="gnatf"
 
 export HISTFILESIZE=10000
 export HISTSIZE=500

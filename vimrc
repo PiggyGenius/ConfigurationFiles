@@ -38,6 +38,7 @@ hi TabLineSel term=bold cterm=bold ctermbg=Black ctermfg=282828
 hi Folded term=underline ctermfg=6 ctermbg=282828
 
 filetype plugin indent on " Adapt indenting to filetype
+autocmd BufRead *.md set ft=markdown
 " Set X bit on files containing #! on first line
 autocmd BufWritePost,FileWritePost * if getline(1) =~ "^#!" | silent !chmod u+x <afile>
 set autoread " If file changed, you want vim to read it again, mainly for chmod
@@ -82,6 +83,7 @@ let R_term = "terminator" " We want to use a terminator split
 let R_tmux_split = 1 " Sadly, we have to use tmux
 let R_rconsole_height = 28 " Nicer split on my home screen
 let R_rconsole_width = 106 " Nicer split on my home screen
+let R_assign = 2
 let R_nvimpager = "vertical"
 let R_in_buffer = 0
 let R_applescript = 0
@@ -92,15 +94,15 @@ inoremap <C-s> <Esc>
 vnoremap <C-s> <Esc>
 
 " Because fuck hjkl
-nnoremap z k
-nnoremap k z
-nnoremap s j
-nnoremap j s
-nnoremap q h
-nnoremap h q
-nnoremap d l
-nnoremap l d
-nnoremap ll dd
+noremap z k
+noremap k z
+noremap s j
+noremap j s
+noremap q h
+noremap h q
+noremap d l
+noremap l d
+noremap ll dd
 
 nnoremap K K<CR>
 nnoremap tg gT
