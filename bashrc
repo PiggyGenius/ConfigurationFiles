@@ -4,6 +4,12 @@
 #create a bell function maxime style
 #### TODO ####
 
+#### TEMP ####
+alias vc='vim ~/apache-tomcat-8.5.11/logs/catalina.out'
+alias cc='echo "" > ~/apache-tomcat-8.5.11/logs/catalina.out'
+alias ra='~/apache-tomcat-8.5.11/bin/shutdown.sh && ~/apache-tomcat-8.5.11/bin/startup.sh'
+#### TEMP ####
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -11,6 +17,7 @@ stty -ixon # Disable the Software Flow Control nonsense
 
 alias sb='source ~/.bashrc'
 alias vv='vim ~/.vimrc'
+alias vb='vim ~/.bashrc'
 alias ls='ls -Fv --color=always' # ls with colors and file type,v is for number sort
 alias la='ls -Av' #ls with relevant hidden files
 alias ll='ls -lasv' #ls with long format and size
@@ -24,6 +31,9 @@ alias studio='/bin/rstudio-bin'
 alias sublime='/bin/subl3' # subl3 is ugly too
 alias tree='/bin/tree -C --dirsfirst' # tree with color and directories first
 alias eclim='/home/piggygenius/.eclipse/org.eclipse.platform_4.6.1_155965261_linux_gtk_x86_64/eclimd > /dev/null 2>&1'
+alias ssh-ensimag='ssh carrel@pcserveur.ensimag.fr'
+alias ssh-bigdata='ssh carrel@bigdata.ensimag.fr'
+alias eclimd='~/.eclipse/org.eclipse.platform_4.6.1_155965261_linux_gtk_x86_64/eclimd -b 2>/dev/null &'
 
 CPU=$(grep -c bogomips /proc/cpuinfo)
 function mem(){
@@ -56,10 +66,6 @@ function untar(){
 }
 function untarz(){
 	tar -xzvf $1
-	rm $1
-}
-function unzip(){
-	unzip $1
 	rm $1
 }
 function gnatmake(){

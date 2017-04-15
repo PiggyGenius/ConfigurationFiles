@@ -24,7 +24,8 @@ set history=500 " Keep 500 lines of command line history
 set incsearch " Nicer search interface
 set mouse=a " Enable mouse
 " Prohibits Vim to complete tabs by the first working string
-set wildmode=longest
+set wildmode=longest,list,full
+set wildmenu
 set hlsearch " Highlight all words matching search
 set foldenable " Allows vim to fold functions
 set foldlevelstart=99 " Only folds functions with more than 99 blocks
@@ -38,6 +39,8 @@ hi TabLineSel term=bold cterm=bold ctermbg=Black ctermfg=282828
 hi Folded term=underline ctermfg=6 ctermbg=282828
 
 filetype plugin indent on " Adapt indenting to filetype
+" Open new buffer into tab
+autocmd BufReadPost * tab ball
 autocmd BufRead *.md set ft=markdown
 " Set X bit on files containing #! on first line
 autocmd BufWritePost,FileWritePost * if getline(1) =~ "^#!" | silent !chmod u+x <afile>
@@ -87,6 +90,7 @@ let R_assign = 2
 let R_nvimpager = "vertical"
 let R_in_buffer = 0
 let R_applescript = 0
+let g:EclimCompletionMethod = 'omnifunc' " Should autocomplete java with eclim
 map <silent><C-e> :NERDTreeToggle<CR>
 map <silent><C-l> :noh<CR>
 map <silent>td :bd<CR>
