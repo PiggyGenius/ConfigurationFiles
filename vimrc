@@ -63,6 +63,7 @@ Plugin 'SirVer/ultisnips' " Snippet engine
 Plugin 'scrooloose/nerdtree' " Display tree inside vim
 Plugin 'jalvesaq/Nvim-R' " R features
 Plugin 'dbext.vim' " SQL client in vim
+Plugin 'jpalardy/vim-slime' " Oh you know, just enables communication between vim and everything...
 call vundle#end()
 
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py" " Setup global config file for YCM
@@ -91,7 +92,11 @@ let R_nvimpager = "vertical"
 let R_in_buffer = 0
 let R_applescript = 0
 let g:EclimCompletionMethod = 'omnifunc' " Should autocomplete java with eclim
-map <silent><C-e> :NERDTreeToggle<CR>
+let g:slime_python_ipython = 1 " Enables the correct paste function for ipython5
+let g:slime_default_config = {"sessionname": "slave", "windowname": "0"}
+xmap <C-e> <Plug>SlimeRegionSend
+nmap <C-e> <Plug>SlimeParagraphSend
+map <silent><C-m> :NERDTreeToggle<CR>
 map <silent><C-l> :noh<CR>
 map <silent>td :bd<CR>
 inoremap <C-s> <Esc>

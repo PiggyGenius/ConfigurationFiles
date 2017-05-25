@@ -4,12 +4,6 @@
 #create a bell function maxime style
 #### TODO ####
 
-#### TEMP ####
-alias vc='vim ~/apache-tomcat-8.5.11/logs/catalina.out'
-alias cc='echo "" > ~/apache-tomcat-8.5.11/logs/catalina.out'
-alias ra='~/apache-tomcat-8.5.11/bin/shutdown.sh && ~/apache-tomcat-8.5.11/bin/startup.sh'
-#### TEMP ####
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -36,6 +30,12 @@ alias ssh-bigdata='ssh carrel@bigdata.ensimag.fr'
 alias eclimd='~/.eclipse/org.eclipse.platform_4.6.1_155965261_linux_gtk_x86_64/eclimd -b 2>/dev/null &'
 
 CPU=$(grep -c bogomips /proc/cpuinfo)
+function startscreen(){
+	screen -S 'slave'
+	screen -ls | grep Attached | cut -f2
+	screen -X eval "msgwait 0"
+}
+
 function mem(){
 	free=$(free | awk 'FNR==2 {print$4}')
 	total=$(free | awk 'FNR==2 {print$2}')
