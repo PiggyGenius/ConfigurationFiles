@@ -3,14 +3,18 @@
 """"""" TODO """"""""
 
 set nocompatible " Uses vim coloring instead of vi
+set shellcmdflag=-ic " Allows vim to load bashrc
+set encoding=utf-8
+set fileencoding=utf-8
 filetype off " Needed for vundle
 syntax on " Set syntax coloring
 set tags+=,.tags; " Adds .tags to the list of possible tag filenames
-set path+=** " Allows vim to do recursive finds
-" Remove the \ in front of the last \" if you want to use it, usefull if not working in root dir
-" let &path .= system("git rev-parse --show-toplevel | tr -d '\\n'") . \"/**" . \",./**"
+set path+=$PWD/** " Allows vim to do recursive finds
+ "Remove the \ in front of the last \" if you want to use it, usefull if not working in root dir
+ "let &path .= system("git rev-parse --show-toplevel | tr -d '\\n'") . \"/**" . \",./**"
 set tabstop=4 " Set the width of tab measured in spaces
-set softtabstop=0 noexpandtab " We don't want to fill tab with spaces
+set softtabstop=0 " Default but let us specify it
+set noexpandtab " We don't want to fill tab with spaces
 set shiftwidth=4 " Set indent width
 set relativenumber " We want to see line numbers, relatively for simpler yanks
 set number " But instead of 0, lets display the real line number
@@ -43,8 +47,8 @@ filetype plugin indent on " Adapt indenting to filetype
 autocmd BufReadPost * tab ball
 autocmd BufRead *.md set ft=markdown
 " Set X bit on files containing #! on first line
-autocmd BufWritePost,FileWritePost * if getline(1) =~ "^#!" | silent !chmod u+x <afile>
-set autoread " If file changed, you want vim to read it again, mainly for chmod
+"autocmd BufWritePost,FileWritePost * if getline(1) =~ "^#!" | silent !chmod u+x <afile>
+"set autoread " If file changed, you want vim to read it again, mainly for chmod
 " Close vim if the only window open is NerdTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Vim opens file with cursor on last known position
@@ -66,6 +70,7 @@ Plugin 'dbext.vim' " SQL client in vim
 Plugin 'jpalardy/vim-slime' " Oh you know, just enables communication between vim and everything...
 call vundle#end()
 
+let g:ycm_filetype_blacklist = {} " Allows us to have completion inside markdown
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py" " Setup global config file for YCM
 let g:ycm_autoclose_preview_window_after_insertion = 1 " Close preview window after insertion
 let g:ycm_autoclose_preview_window_after_completion = 1 " Close preview window after completion
@@ -94,7 +99,9 @@ let R_applescript = 0
 let g:EclimCompletionMethod = 'omnifunc' " Should autocomplete java with eclim
 let g:slime_python_ipython = 1 " Enables the correct paste function for ipython5
 let g:slime_default_config = {"sessionname": "slave", "windowname": "0"}
+let g:markdown_fenced_languages = ['python', 'html']
 xmap <C-e> <Plug>SlimeRegionSend
+nmap <silent><C-x> :SlimeSendCurrentLine<CR>
 nmap <C-e> <Plug>SlimeParagraphSend
 map <silent><C-m> :NERDTreeToggle<CR>
 map <silent><C-l> :noh<CR>
@@ -119,6 +126,12 @@ nnoremap tg gT
 nnoremap <silent><C-f> <C-w><C-]><C-w>T
 " Allows us to create a tag file from current directory
 command! MakeTags silent execute "!ctags -Rf .tags ." | redraw!
+" Allows us to compile tex/md files inside vim
+command! Mh silent execute "!html %:t" | redraw!
+command! Mp silent execute "!pdf %:t" | redraw!
+" Open the output of the tex/md file without leaving vim
+command! Cp silent execute "!chrome %:r.pdf" | redraw!
+command! Ch silent execute "!chrome %:r.html" | redraw!
 
 " The goal with this is te redfine the tabline function to remove X button, to be improved
 function MyTabLine()
@@ -154,3 +167,11 @@ function MyFoldText()
 	return indent . sub
 endfunction
 set foldtext=MyFoldText()
+
+function! SetupPython()
+	setlocal tabstop=4 " Set the width of tab measured in spaces
+	setlocal softtabstop=0 " Default but let us specify it
+	setlocal noexpandtab " We don't want to fill tab with spaces
+	setlocal shiftwidth=4 " Set indent width
+endfunction
+command! -bar SetupPython call SetupPython()

@@ -9,6 +9,10 @@
 
 stty -ixon # Disable the Software Flow Control nonsense
 
+PYTHONIOENCODING="UTF-8"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 alias sb='source ~/.bashrc'
 alias vv='vim ~/.vimrc'
 alias vb='vim ~/.bashrc'
@@ -27,6 +31,7 @@ alias tree='/bin/tree -C --dirsfirst' # tree with color and directories first
 alias eclim='/home/piggygenius/.eclipse/org.eclipse.platform_4.6.1_155965261_linux_gtk_x86_64/eclimd > /dev/null 2>&1'
 alias ssh-ensimag='ssh carrel@pcserveur.ensimag.fr'
 alias ssh-bigdata='ssh carrel@bigdata.ensimag.fr'
+alias sftp-seedbox='sftp ludo.itr_11585@izac.myseedbox.site'
 alias eclimd='~/.eclipse/org.eclipse.platform_4.6.1_155965261_linux_gtk_x86_64/eclimd -b 2>/dev/null &'
 
 CPU=$(grep -c bogomips /proc/cpuinfo)
@@ -41,6 +46,54 @@ function mem(){
 	total=$(free | awk 'FNR==2 {print$2}')
 	echo "scale=2;100-($free*100/$total)" | bc -l
 }
+function html(){
+	name=$(basename $1 .md)
+	notedown $1 --run > $name.ipynb
+	jupyter nbconvert --to html $name.ipynb &> /dev/null
+}
+function trim_spaces(){
+	for file in *; do mv "$file" `echo $file | tr ' ' '_'` ; done
+}
+function trim_par(){
+	for file in *; do mv "$file" `echo $file | tr -d '()'` ; done
+}
+### TEMP ###
+#for file in *; do sub=`echo $file | sed 's/Batman_[0-9]*//g'`;mv "$file" "${file%${sub}}".cbr; done
+### TEMP ###
+function light(){
+	if [ "$1" == "down" ]; then
+		if [ $# -eq 1 ]; then
+			xbacklight -dec 20
+		else
+			xbacklight -dec $2
+		fi
+	elif [ "$1" == "up" ]; then
+		if [ $# -eq 1 ]; then
+			xbacklight -inc 20
+		else
+			xbacklight -inc $2
+		fi
+	fi
+}
+function sound(){
+	if [ $# -eq 0 ]; then
+		amixer set Master toggle &> /dev/null
+	else
+		if [ "$1" == "down" ]; then
+			if [ $# -eq 1 ]; then
+				amixer set Master playback 10- &> /dev/null
+			else
+				amixer set Master playback "$2"- &> /dev/null
+			fi
+		elif [ "$1" == "up" ]; then
+			if [ $# -eq 1 ]; then
+				amixer set Master playback 10+ &> /dev/null
+			else
+				amixer set Master playback "$2"+ &> /dev/null
+			fi
+		fi
+	fi
+}
 function screenshot(){
 	gnome-screenshot -a -f $1
 }
@@ -51,7 +104,6 @@ function maketree(){
 function pdf(){
 	name=$(basename $1 .tex)
 	pdflatex $1
-	rm $name.log $name.aux
 }
 function chrome(){
 	xdg-open $1 &> /dev/null
