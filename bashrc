@@ -13,12 +13,15 @@ PYTHONIOENCODING="UTF-8"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
+export CUDA_HOME=/usr/local/cuda
+alias battery='acpi -i'
 alias sb='source ~/.bashrc'
 alias vv='vim ~/.vimrc'
 alias vb='vim ~/.bashrc'
 alias ls='ls -Fv --color=always' # ls with colors and file type,v is for number sort
 alias la='ls -Av' #ls with relevant hidden files
-alias ll='ls -lasv' #ls with long format and size
+alias ll='ls -lahsv' #ls with long format and size
 alias grep='grep --color=always' # grep with colors
 alias mkdir='mkdir -p' # To create the parent directories
 alias mktar='tar -cvf'
@@ -33,18 +36,22 @@ alias ssh-ensimag='ssh carrel@pcserveur.ensimag.fr'
 alias ssh-bigdata='ssh carrel@bigdata.ensimag.fr'
 alias sftp-seedbox='sftp ludo.itr_11585@izac.myseedbox.site'
 alias eclimd='~/.eclipse/org.eclipse.platform_4.6.1_155965261_linux_gtk_x86_64/eclimd -b 2>/dev/null &'
+alias screenshut='screen -X eval "msgwait 0"'
 
 CPU=$(grep -c bogomips /proc/cpuinfo)
 function startscreen(){
-	screen -S 'slave'
-	screen -ls | grep Attached | cut -f2
+	if [ $# -eq 0 ]; then
+		screen -S slave
+	else
+		screen -S $1
+	fi
 	screen -X eval "msgwait 0"
 }
 
 function mem(){
-	free=$(free | awk 'FNR==2 {print$4}')
-	total=$(free | awk 'FNR==2 {print$2}')
-	echo "scale=2;100-($free*100/$total)" | bc -l
+	free=$(free -m | awk 'NR==2 {print$4}')
+	total=$(free -m | awk 'NR==2 {print$2}')
+    echo "scale=2;100-($free*100/$total)" | bc -l
 }
 function html(){
 	name=$(basename $1 .md)
@@ -103,6 +110,9 @@ function maketree(){
 }
 function pdf(){
 	name=$(basename $1 .tex)
+	pdflatex $1
+	biber $name
+	pdflatex $1
 	pdflatex $1
 }
 function chrome(){
@@ -182,7 +192,8 @@ function __setprompt
 	local NOCOLOR="\033[0m"
 
 
-	PS1="" # Resetting PS1
+    PS1="" # Resetting PS1
+    PS1+="\[${GREEN}\]\$(basename '$VIRTUAL_ENV')"
 	PS1+="\[${MAGENTA}\]CPU:$(cpu)%-" # Display CPU usage
 	PS1+="\[${MAGENTA}\]RAM:$(mem)%|" # Display RAM usage
 	PS1+="\[${DARKGRAY}\]\[${BROWN}\]\w\[${DARKGRAY}\]\n" # Directory hierarchy

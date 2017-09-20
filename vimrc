@@ -12,9 +12,13 @@ set tags+=,.tags; " Adds .tags to the list of possible tag filenames
 set path+=$PWD/** " Allows vim to do recursive finds
  "Remove the \ in front of the last \" if you want to use it, usefull if not working in root dir
  "let &path .= system("git rev-parse --show-toplevel | tr -d '\\n'") . \"/**" . \",./**"
+
+" TODO CHANGE SPACES TO TABS
+"set softtabstop=0 " Default but let us specify it
+"set noexpandtab " We don't want to fill tab with spaces
+set expandtab
+
 set tabstop=4 " Set the width of tab measured in spaces
-set softtabstop=0 " Default but let us specify it
-set noexpandtab " We don't want to fill tab with spaces
 set shiftwidth=4 " Set indent width
 set relativenumber " We want to see line numbers, relatively for simpler yanks
 set number " But instead of 0, lets display the real line number
@@ -103,7 +107,7 @@ let g:markdown_fenced_languages = ['python', 'html']
 xmap <C-e> <Plug>SlimeRegionSend
 nmap <silent><C-x> :SlimeSendCurrentLine<CR>
 nmap <C-e> <Plug>SlimeParagraphSend
-map <silent><C-m> :NERDTreeToggle<CR>
+"map <silent><C-m> :NERDTreeToggle<CR>
 map <silent><C-l> :noh<CR>
 map <silent>td :bd<CR>
 inoremap <C-s> <Esc>
@@ -167,11 +171,3 @@ function MyFoldText()
 	return indent . sub
 endfunction
 set foldtext=MyFoldText()
-
-function! SetupPython()
-	setlocal tabstop=4 " Set the width of tab measured in spaces
-	setlocal softtabstop=0 " Default but let us specify it
-	setlocal noexpandtab " We don't want to fill tab with spaces
-	setlocal shiftwidth=4 " Set indent width
-endfunction
-command! -bar SetupPython call SetupPython()
