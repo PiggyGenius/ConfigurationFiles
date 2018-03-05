@@ -1,2 +1,4 @@
 vbell off
 bell_msg ""
+msgwait 0
+msgminwait 0

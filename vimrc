@@ -16,7 +16,7 @@ set path+=$PWD/** " Allows vim to do recursive finds
 " TODO CHANGE SPACES TO TABS
 "set softtabstop=0 " Default but let us specify it
 "set noexpandtab " We don't want to fill tab with spaces
-set expandtab
+"set expandtab
 
 set tabstop=4 " Set the width of tab measured in spaces
 set shiftwidth=4 " Set indent width
@@ -104,6 +104,7 @@ let g:EclimCompletionMethod = 'omnifunc' " Should autocomplete java with eclim
 let g:slime_python_ipython = 1 " Enables the correct paste function for ipython5
 let g:slime_default_config = {"sessionname": "slave", "windowname": "0"}
 let g:markdown_fenced_languages = ['python', 'html']
+let g:EclimSignLevel = 'error' " Only show errors on vim
 xmap <C-e> <Plug>SlimeRegionSend
 nmap <silent><C-x> :SlimeSendCurrentLine<CR>
 nmap <C-e> <Plug>SlimeParagraphSend
@@ -162,6 +163,7 @@ function MyTabLine()
 	endfunction
 set tabline=%!MyTabLine()
 
+" Open fold with ka
 function MyFoldText()
 	let line = getline(v:foldstart)
 	let sub = substitute(line, '{', '{!}', 'g')

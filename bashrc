@@ -10,9 +10,9 @@
 stty -ixon # Disable the Software Flow Control nonsense
 
 PYTHONIOENCODING="UTF-8"
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
+#export LC_ALL=en_US.UTF-8
+#export LANG=en_US.UTF-8
+#export LANGUAGE=en_US.UTF-8
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
 export CUDA_HOME=/usr/local/cuda
 alias battery='acpi -i'
@@ -31,12 +31,13 @@ alias R='R --no-save --silent'
 alias studio='/bin/rstudio-bin'
 alias sublime='/bin/subl3' # subl3 is ugly too
 alias tree='/bin/tree -C --dirsfirst' # tree with color and directories first
-alias eclim='/home/piggygenius/.eclipse/org.eclipse.platform_4.6.1_155965261_linux_gtk_x86_64/eclimd > /dev/null 2>&1'
+alias eclim='/home/piggygenius/.eclipse/org.eclipse.platform_4.7.0_155965261_linux_gtk_x86_64/eclimd &'
 alias ssh-ensimag='ssh carrel@pcserveur.ensimag.fr'
+alias sftp-ensimag='sftp carrel@pcserveur.ensimag.fr'
 alias ssh-bigdata='ssh carrel@bigdata.ensimag.fr'
 alias sftp-seedbox='sftp ludo.itr_11585@izac.myseedbox.site'
-alias eclimd='~/.eclipse/org.eclipse.platform_4.6.1_155965261_linux_gtk_x86_64/eclimd -b 2>/dev/null &'
 alias screenshut='screen -X eval "msgwait 0"'
+alias ipython='ipython --no-banner'
 
 CPU=$(grep -c bogomips /proc/cpuinfo)
 function startscreen(){
@@ -107,6 +108,13 @@ function screenshot(){
 function maketree(){
 	name=$(basename $1 .dot)
 	dot -Tpng $1 -o $name.png
+}
+function sshclone(){
+	if [ $# -eq 1 ]; then
+		git clone ssh://git@github.com/PiggyGenius/$1.git
+	else
+		git clone ssh://git@github.com/$1/$2.git
+	fi
 }
 function pdf(){
 	name=$(basename $1 .tex)
